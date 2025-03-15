@@ -4,7 +4,7 @@ import HomePage from "./pages/HomePage";
 
 const App = () => {
   return (
-    <Router>
+    <Router basename="/blog_app_test">
       <Routes>
         <Route path="/" element={<HomePage />} />
       </Routes>

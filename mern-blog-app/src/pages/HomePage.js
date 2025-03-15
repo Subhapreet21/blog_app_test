@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Post from "../components/Post";
+import "./HomePage.css";
 
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
@@ -49,17 +50,22 @@ const HomePage = () => {
   };
 
   const handleDelete = async (id) => {
-    try {
-      await axios.delete(`http://localhost:5000/api/posts/${id}`);
-      const res = await axios.get("http://localhost:5000/api/posts");
-      setPosts(res.data);
-    } catch (error) {
-      console.error("Error deleting post:", error);
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this post?"
+    );
+    if (confirmDelete) {
+      try {
+        await axios.delete(`http://localhost:5000/api/posts/${id}`);
+        const res = await axios.get("http://localhost:5000/api/posts");
+        setPosts(res.data);
+      } catch (error) {
+        console.error("Error deleting post:", error);
+      }
     }
   };
 
   return (
-    <div>
+    <div className="container">
       <h1>Blog Posts</h1>
       <form onSubmit={handleSubmit}>
         <input

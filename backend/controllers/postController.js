@@ -42,11 +42,14 @@ const deletePost = async (req, res) => {
   const { id } = req.params;
 
   try {
+    console.log(`Attempting to delete post with id: ${id}`);
     const post = await Post.findById(id);
     if (!post) {
+      console.log(`Post with id: ${id} not found`);
       return res.status(404).json({ message: "Post not found" });
     }
-    await Post.findByIdAndRemove(id);
+    await Post.findByIdAndDelete(id);
+    console.log(`Post with id: ${id} deleted successfully`);
     res.status(200).json({ message: "Post deleted successfully" });
   } catch (error) {
     console.error("Error deleting post:", error);
